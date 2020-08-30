@@ -22,4 +22,7 @@ class MyNavigator {
   static void goToSplitType(BuildContext context) {
     Navigator.pushNamed(context, "/split");
   }
+  static void goToSettle(BuildContext context) {
+    Navigator.pushNamed(context, "/settle");
+  }
 }

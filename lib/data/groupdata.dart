@@ -3,6 +3,9 @@ import 'package:split_wise/data/kharche.dart';
 import 'package:split_wise/data/people.dart';
 
 class GroupData{
+
+
+  Map<String ,int> trans=Map();
   int _no=0;
   String _groupName="Groupname";
   List<People> _people=[];
@@ -32,8 +35,12 @@ class GroupData{
     return _no;
   }
 
-  void addKharche(String desc , double money){
-    this._kharche.add(new Kharche(desc,money));
+  void addKharche(String desc , int money,String payer){
+    this._kharche.add(new Kharche(desc,money,payer));
+  }
+
+  void addTrans(String name, int amt){
+    trans[name] =amt;
   }
 
 }

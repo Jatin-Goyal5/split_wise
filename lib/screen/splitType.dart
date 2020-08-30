@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:split_wise/algorithm/settleTrans.dart';
 import 'package:split_wise/data/groupdata.dart';
 import 'package:split_wise/data/kharche.dart';
 import 'package:split_wise/data/people.dart';
@@ -44,7 +45,13 @@ class _expenseTypeState extends State<expenseType> {
                 Expanded(
                   flex:2,
                   child: new FlatButton(
-                    child: Text("Settle UP",),color: Colors.red,onPressed: (){},),
+                    child: Text("Settle UP",),color: Colors.red,onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => settleTrans(ind: ind,),
+                        ));
+                  },),
                 ),
                 Expanded(
                   flex: 1,
@@ -74,13 +81,14 @@ class _expenseTypeState extends State<expenseType> {
                   title: Text(kh.descRiption(), style: TextStyle(
                     fontWeight: FontWeight.bold
                   ),),
-                  subtitle: Text(kh.getAmt().toString()),
+                  subtitle: Text(kh.getPayer()+"   "+kh.getAmt().toString()),
                   leading: CircleAvatar(
                     maxRadius: 30.0,
                     child: Text(kh.descRiption()[0]),
                   ),
                   onTap: (){
-                    print(groups[ind].getPeopleList()[0].getMoney());
+                    print(groups[ind].trans[kh.getPayer()]);
+
                   },
                 ),
               );

@@ -16,11 +16,10 @@ class _addBillState extends State<addBill> {
   final descController= TextEditingController();
   final  amtController= TextEditingController();
   String desc="";
-  double amount;
+  int amount;
   String ans="you";
   final int ind;
   _addBillState(this.ind);
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +32,29 @@ class _addBillState extends State<addBill> {
             FlatButton(
               child: Text("Save"),
               onPressed: (){
+                List<People> forTrans= groups[ind].getPeopleList();
 
                 desc=descController.text;
-                amount= int.parse(amtController.text)+0.00;
-                groups[ind].addKharche(desc,amount);
+                amount= int.parse(amtController.text);
+                groups[ind].addKharche(desc,amount,ans);
+                double money = amount/forTrans.length;
 
+                if(!groups[ind].trans.containsKey(ans)){
+                  groups[ind].trans[ans] =0;
+                }
+                groups[ind].trans[ans] -= (money).round();
 
+                for(int i =0 ; i < forTrans.length; i++){
+                  String p = forTrans[i].getName();
+                  if(p != ans){
+                    if(!groups[ind].trans.containsKey(p)){
+                      groups[ind].trans[p] = 0;
+                    }
+                    groups[ind].trans[p] += (money).round();
 
+                  }
 
-                //
+                }
 
 
                   Navigator.pop(context);
@@ -132,20 +145,13 @@ class _addBillState extends State<addBill> {
               RaisedButton(
                 child: Text("Equally"),
                 onPressed: (){
-                  //List<People> clist= groups[ind].getPeopleList();
-                  setState(() {
-                    int len =groups[ind].getPeopleList().length;
-                    amount= amount/len;
-                    for(int i =0 ; i < len ; i++){
-                      // if(ans== clist[i].getPhoneno() || ans == clist[i].getName()){
-                      //   groups[ind].getPeopleList()[i].addMoney(-amount);
-                      // }else{
-                      //   groups[ind].getPeopleList()[i].addMoney(amount);
-                      // }
-                    }
-
-                  });
-
+                  // //List<People> clist= groups[ind].getPeopleList();
+                  // setState(() {
+                  //   int len =groups[ind].getPeopleList().length;
+                  //   // amount= amount/len;
+                  //   // groups[ind].trans["name"]=100;
+                  // });
+                  //
 
                 },
               )

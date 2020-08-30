@@ -66,9 +66,10 @@ class _GroupState extends State<Group> {
 
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
-        child: IconButton(
-          icon: Icon(Icons.add,size: 20.0,color: Colors.white,)
-        ),
+        child:
+           Icon(Icons.add,size: 20.0,color: Colors.white,)
+        ,
+        onPressed: (){},
       ),
     );
   }

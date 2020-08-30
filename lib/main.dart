@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:split_wise/Tab_pages/Friends_List.dart';
 import 'package:split_wise/Tab_pages/create_Group.dart';
 import 'package:split_wise/Tab_pages/group.dart';
+import 'package:split_wise/algorithm/settleTrans.dart';
 import 'package:split_wise/data/peoplelist.dart';
 import 'package:split_wise/screen/card_pallete.dart';
 import 'package:split_wise/screen/splitType.dart';
@@ -14,6 +15,7 @@ var routes = <String, WidgetBuilder>{
   "/tab": (BuildContext context) => Menu(),
   "/People": (BuildContext context) => peopleList(),
   "/split":(BuildContext context) => expenseType(),
+  "/settle":(BuildContext context) => settleTrans(),
 
 };
 void main() {
