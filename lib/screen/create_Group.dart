@@ -42,6 +42,7 @@ class _CreateGroupState extends State<CreateGroup> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: new Row(
 
           children: <Widget>[
@@ -54,12 +55,11 @@ class _CreateGroupState extends State<CreateGroup> {
                   _groupName= groupNamecon.text;
                   newgroup = new GroupData(_groupName,_Trip,tpeople);
                   groups.add(newgroup);
-                MyNavigator.goToMenu(context);
+                MyNavigator.goToTab(context);
               },
             )
           ],
         ),
-        backgroundColor: Colors.cyan,
       ),
       body: new Scrollbar(
         child: ListView(

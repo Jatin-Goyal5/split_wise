@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:split_wise/Tab_pages/Friends_List.dart';
+import 'package:split_wise/Tab_pages/appDrawer.dart';
 import 'package:split_wise/Tab_pages/group.dart';
 class Menu extends StatefulWidget {
   @override
@@ -23,10 +24,10 @@ class _MenuState extends State<Menu> {
     return DefaultTabController(
       length: _kTabs.length,
       child: Scaffold(
+        drawer: appDrawer(),
         appBar: AppBar(
           title: Text('S P L I T W I S E'),titleSpacing: 30.0,
-          leading: Icon(Icons.list),
-          backgroundColor: Colors.cyan,
+          elevation: 0.0,
           bottom: TabBar(
             tabs: _kTabs,
           ),

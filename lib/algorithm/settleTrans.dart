@@ -19,13 +19,24 @@ class _settleTransState extends State<settleTrans> {
   Widget build(BuildContext context) {
     List<ansDetail> settleTransMoney= settleUp(ind);
     return new Scaffold(
-      appBar: AppBar(title: Text("jdnsjs"),),
+      appBar: AppBar(title: Text("Settle Money",
+        style: TextStyle(fontWeight: FontWeight.w300,fontStyle: FontStyle.normal),),),
       body: new ListView.builder(
         itemCount: settleTransMoney.length,
         itemBuilder: (context,index){
-          return new ListTile(
-            title: Text(settleTransMoney[index].debiter+"   "+
-                settleTransMoney[index].settleMoney.toString()+"  " +settleTransMoney[index].crediter),
+          return Column(
+            children: <Widget>[
+            new ListTile(
+
+              title: Text(settleTransMoney[index].crediter+"  will pay  "+
+                  settleTransMoney[index].settleMoney.toString()+"  " +settleTransMoney[index].debiter,
+              style: TextStyle(fontWeight: FontWeight.w400,fontStyle: FontStyle.normal,
+              fontSize: 20.0),
+              ),
+              dense: true,
+            ),
+              Divider(),
+          ]
           );
         },
       ),

@@ -3,7 +3,6 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:split_wise/MyNavigator.dart';
-import 'package:split_wise/Tab_pages/create_Group.dart';
 import 'package:split_wise/data/friendListphone.dart';
 import 'package:split_wise/data/people.dart';
 
@@ -13,9 +12,9 @@ class peopleList extends StatefulWidget {
 }
 
 class _peopleListState extends State<peopleList> {
-  String s="hello";
-  List<People>mu=[new People("858537950","you")];
-  String name ="you";
+  String s="";
+  List<People>mu=[new People("8585937950","You"),];
+  String name ="";
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

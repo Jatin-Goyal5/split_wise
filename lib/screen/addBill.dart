@@ -17,7 +17,7 @@ class _addBillState extends State<addBill> {
   final  amtController= TextEditingController();
   String desc="";
   int amount;
-  String ans="you";
+  String ans="";
   final int ind;
   _addBillState(this.ind);
 
@@ -25,6 +25,7 @@ class _addBillState extends State<addBill> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title:new Row(
           children: <Widget>[
             Text("add Bill"),
@@ -42,7 +43,7 @@ class _addBillState extends State<addBill> {
                 if(!groups[ind].trans.containsKey(ans)){
                   groups[ind].trans[ans] =0;
                 }
-                groups[ind].trans[ans] -= (money).round();
+                  groups[ind].trans[ans] -= amount-(money).round();
 
                 for(int i =0 ; i < forTrans.length; i++){
                   String p = forTrans[i].getName();

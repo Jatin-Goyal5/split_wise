@@ -19,15 +19,19 @@ List<ansDetail> settleUp(int i) {
   //m.sort(amountComparator);
   List<ansDetail> ansTrans= List();
   groups[i].trans.forEach((key,value){
-    String person = key;
-    int amt = value;
+
     if(value !=0 ){
-      m.add(new Pair(person, amt));
+      m.add(new Pair(key, value));
       m.sort(amountComparator);
+
     }
   });
   m.sort(amountComparator);
-  while(m.length>0){
+  for(int i=0 ; i< m.length; i++){
+    print(m[i].name);
+    print(m[i].amount);
+  }
+  while(m.isNotEmpty){
     Pair start = m.first;
     Pair end = m.last;
 
@@ -39,23 +43,29 @@ List<ansDetail> settleUp(int i) {
 
     // pop
 
-    m.remove(start);
-    m.remove(end);
 
+    m.remove(start);
+
+    m.remove(end);
+    // print(debit);
+    // print(credit);
     int settleamt= min(-debit,credit);
     debit += settleamt;
     credit -= settleamt;
 
     // add in ans
-    ansTrans.add(new ansDetail(debitName, settleamt, creditName));
+    if(debitName != creditName)
+      ansTrans.add(new ansDetail(debitName, settleamt, creditName));
 
-    if(debit >0){
+    if(debit != 0 ){
       m.add(new Pair(debitName,debit));
+
+      m.sort(amountComparator);
     }
+    if(credit != 0 ){
 
-
-    if(credit > 0){
       m.add(new Pair(creditName,credit));
+      m.sort(amountComparator);
     }
   }
 

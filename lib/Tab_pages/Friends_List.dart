@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:split_wise/data/friendListphone.dart';
+import 'package:split_wise/widget/friend_tile.dart';
 class friend_list extends StatefulWidget {
   @override
   _friend_listState createState() => _friend_listState();
@@ -38,26 +38,7 @@ class _friend_listState extends State<friend_list> {
     body:ListView.builder(
       shrinkWrap: true,
       itemCount: contacts.length,
-      itemBuilder: (context,index){
-        Contact contact = contacts[index];
-
-        return new ListTile(
-          title: Text(contact.displayName != null ?contact.displayName:'' ),
-          subtitle:  Text(
-              contact.phones.length > 0 ? contact.phones.elementAt(0).value : ''
-          ),
-            leading: (contact.avatar != null && contact.avatar.length > 0) ?
-            CircleAvatar(
-              backgroundImage: MemoryImage(contact.avatar),
-            ) : CircleAvatar(
-              child: Text(contact.initials()),
-            ),
-          onTap: (){
-            print(contact.phones.elementAt(0).value );
-          },
-
-        );
-      }
+      itemBuilder: (context,index)=>Friend_tile(index),
 
     )
     );

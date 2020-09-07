@@ -4,8 +4,7 @@ import 'package:split_wise/data/people.dart';
 
 class GroupData{
 
-
-  Map<String ,int> trans=Map();
+  Map<String ,int> trans=Map();// for settle amt
   int _no=0;
   String _groupName="Groupname";
   List<People> _people=[];
@@ -38,10 +37,5 @@ class GroupData{
   void addKharche(String desc , int money,String payer){
     this._kharche.add(new Kharche(desc,money,payer));
   }
-
-  void addTrans(String name, int amt){
-    trans[name] =amt;
-  }
-
 }
 

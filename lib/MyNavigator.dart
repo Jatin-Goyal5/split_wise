@@ -2,17 +2,17 @@
 import 'package:flutter/material.dart';
 
 class MyNavigator {
-  static void goToHome(BuildContext context) {
-    Navigator.pushNamed(context, "/home");
+  static void goToCreateGroup(BuildContext context) {
+    Navigator.pushNamed(context, "/createGroup");
   }
 
-  static void goToIntro(BuildContext context) {
-    Navigator.pushNamed(context, "/intro");
+  static void goToFriendList(BuildContext context) {
+    Navigator.pushNamed(context, "/friend");
   }
   static void goToGroup(BuildContext context) {
     Navigator.pushNamed(context, "/group");
   }
-  static void goToMenu(BuildContext context) {
+  static void goToTab(BuildContext context) {
     Navigator.pushNamed(context, "/tab");
   }
   static void goToaddPeople(BuildContext context) {

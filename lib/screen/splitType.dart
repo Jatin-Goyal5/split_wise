@@ -24,16 +24,20 @@ class _expenseTypeState extends State<expenseType> {
     List<People> mypeople = mygroup.getPeopleList();
     List<Kharche> ckharch= mygroup.getKharcheList();
     return new Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0.0,
         title: Text(
-          "people"
+          "People",
+          style: TextStyle(
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold
+          ),
         ),
       ),
       body: ListView(
-
+        shrinkWrap: true,
         children:<Widget>[ Container(
-          color: Colors.lightBlue,
+          color: Colors.purple,
           child: new ListTile(
 
             title:  new Center(child:Icon(Icons.featured_play_list,size: 100.0,color: Colors.white,)),
@@ -68,34 +72,36 @@ class _expenseTypeState extends State<expenseType> {
           Divider(
             height: 20.0,
           ),
-          Scrollbar(
-          child:new ListView.builder(
+          new ListView.builder(
             shrinkWrap: true,
             itemCount: ckharch.length,
             itemBuilder:(context,index){
               People person = mypeople[index];
               Kharche kh = ckharch[index];
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: new ListTile(
-                  title: Text(kh.descRiption(), style: TextStyle(
-                    fontWeight: FontWeight.bold
-                  ),),
-                  subtitle: Text(kh.getPayer()+"   "+kh.getAmt().toString()),
-                  leading: CircleAvatar(
-                    maxRadius: 30.0,
-                    child: Text(kh.descRiption()[0]),
-                  ),
-                  onTap: (){
-                    print(groups[ind].trans[kh.getPayer()]);
+              return Column(
+                children: <Widget>[
 
-                  },
-                ),
+                  new ListTile(
+                    title: Text(kh.descRiption(), style: TextStyle(
+                      fontWeight: FontWeight.bold
+                    ),),
+                    subtitle: Text(kh.getPayer()+"   "+kh.getAmt().toString()),
+                    leading: CircleAvatar(
+                      maxRadius: 30.0,
+                      child: Text(kh.descRiption()[0]),
+                    ),
+                    onTap: (){
+                      print(groups[ind].trans[kh.getPayer()]);
+
+                    },
+                  ),
+                  Divider(
+                    color: Colors.blueGrey,
+                  ),
+                ],
               );
             } ,
           ),
-
-        ),
 
     ]
       ),
