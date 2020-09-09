@@ -21,27 +21,24 @@ class CreateGroup extends StatefulWidget {
 }
 GroupData newgroup;
 class _CreateGroupState extends State<CreateGroup> {
+  List<String> type =["Apartment" , "trip" , "House" ,"Other"];
+  List<bool> _selected = List.generate(4, (i) => false);
   List<People> tpeople=[];
   final groupNamecon = new TextEditingController();
   String _groupName;
   String _Trip;
   bool mycolor = true;
-  Widget Expenses(String expenseType) {
+  Widget Expenses(index) {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black26,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10)
-        ),
+        color: _selected[index] ? Colors.lightBlueAccent : Colors.white,
+
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.8),
-            spreadRadius: 10,
-            blurRadius: 8,
+            spreadRadius: 3,
+            blurRadius: 50,
             offset: Offset(3, 4), // changes position of shadow
           ),
           BoxShadow(
@@ -53,24 +50,13 @@ class _CreateGroupState extends State<CreateGroup> {
       ),
       child: new FlatButton(
 
-        child: Text(expenseType,style:TextStyle(shadows: <Shadow>[
-          Shadow(
-            offset: Offset(3.0, 3.0),
-            blurRadius: 3.5,
-            color:Colors.black54,
-          ),
-          Shadow(
-            offset: Offset(5.0, 5.0),
-            blurRadius: 8.0,
-            color: Colors.black12,
-          ),
-        ],
-      )
-      ),
+        child: Text(type[index],),
         onPressed: () {
-          _Trip = expenseType;
+          _Trip = type[index];
           setState(() {
-            mycolor = !mycolor;
+
+            _selected[index] = !_selected[index];
+
           });
 
         },
@@ -129,22 +115,25 @@ class _CreateGroupState extends State<CreateGroup> {
 
           ),
           Divider(),
-          new Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expenses("Hotel"),
-              Expenses("Launch"),
-              Expenses("Trip"),
-              Expenses("Party"),
-            ],
-          ),
+         new Row(
+           mainAxisAlignment: MainAxisAlignment.spaceAround,
+           children: <Widget>[
+             Expenses(0),
+             Expenses(1),
+             Expenses(2),
+             Expenses(3),
+
+           ],
+
+         ),
           Divider(),
           Row(
+
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children:<Widget>[ Text("Group Members",style: TextStyle(fontSize: 20.0,
-              color: Colors.brown,
+              color: Colors.black,
               shadows: [ Shadow(
-                  offset: Offset(3.0, 3.0),
+                  offset: Offset(2.0, 1.0),
                   blurRadius: 8.0,
                   color: Colors.brown
               ),
@@ -162,9 +151,9 @@ class _CreateGroupState extends State<CreateGroup> {
 
             title: Text("Add a person to group",style:
               TextStyle(fontSize: 25.0,
-                color: Colors.brown ,
+                color: Colors.black ,
                   shadows: [ Shadow(
-                      offset: Offset(3.0, 3.0),
+                      offset: Offset(1.0, 1.0),
                       blurRadius: 8.0,
                       color: Colors.brown
                   ),

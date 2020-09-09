@@ -12,6 +12,9 @@ class peopleList extends StatefulWidget {
 }
 
 class _peopleListState extends State<peopleList> {
+
+  List<bool> _selected = List.generate(contacts.length, (i) => false);
+
   String s="";
   List<People>mu=[new People("8585937950","You"),];
   String name ="";
@@ -38,22 +41,23 @@ class _peopleListState extends State<peopleList> {
             itemBuilder: (context,index){
               Contact contact = contacts[index];
               return Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(3.0),
                 child: Container(
                     decoration: new BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
+                      color: _selected[index] ? Colors.lightBlueAccent : Colors.white,
                       boxShadow: [
 
-                          BoxShadow(
-                            blurRadius: 25.0, // soften the shadow
+                        BoxShadow(
+                            blurRadius: 90.0, // soften the shadow
                             spreadRadius: 5.0, //extend the shadow
                             offset: Offset(
                               15.0, // Move to right 10  horizontally
-                              15.0, // Move to bottom 10 Vertically
+                              5.0, // Move to bottom 10 Vertically
                             ),
-                          )
-                        ],
+                            color: Colors.blueGrey
+                        )
+                      ],
                     ),
                   child: new ListTile(
                     title: Text(contact.displayName != null ?contact.displayName:'' ),
@@ -70,6 +74,7 @@ class _peopleListState extends State<peopleList> {
                      s=contact.phones.length > 0 ? (contact.phones.elementAt(0).value): '';
                      name = contact.displayName != null ?contact.displayName:'';
                      mu.add(new People(s,name));
+                     setState(() => _selected[index] = !_selected[index]);
                     },
                   ),
                 ),

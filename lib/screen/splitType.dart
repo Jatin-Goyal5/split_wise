@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:icon_shadow/icon_shadow.dart';
 import 'package:split_wise/algorithm/settleTrans.dart';
 import 'package:split_wise/data/groupdata.dart';
 import 'package:split_wise/data/kharche.dart';
@@ -37,15 +36,30 @@ class _expenseTypeState extends State<expenseType> {
       body: ListView(
         shrinkWrap: true,
         children:<Widget>[ Container(
-          color:Colors.grey,
+          decoration:BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(0.0),
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+              topRight: Radius.circular(0.0)
+          ),
+         color: Colors.lightBlueAccent
+          // border:  Border(
+          // left: BorderSide(
+          //
+          // width: 1.0,
+          // ),
+          // top: BorderSide(
+          //
+          // width: 1.0,
+          // ),
+          // ),
+          ),
           child: new ListTile(
 
-            title:  new Center(child:IconShadowWidget( Icon(Icons.account_balance_wallet,size: 100.0),
-            showShadow: true,
-            shadowColor: Colors.black26,)
-            ),
+            title:  new Center(child:Icon(Icons.account_balance_wallet,size: 100.0)),
             subtitle: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.only(top:10.0),
               child: new Row(
                 children: <Widget>[
                 Expanded(
@@ -56,7 +70,7 @@ class _expenseTypeState extends State<expenseType> {
               boxShadow: [
 
                 BoxShadow(
-                  blurRadius: 35.0, // soften the shadow
+                  blurRadius: 25.0, // soften the shadow
                   spreadRadius: 5.0, //extend the shadow
                   offset: Offset(
                     15.0, // Move to right 10  horizontally
@@ -98,21 +112,22 @@ class _expenseTypeState extends State<expenseType> {
                 ),
                 Expanded(
                   flex: 2,
-                    child:new Container( decoration: new BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
+                    child:new Container(
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          boxShadow: [
 
-                        BoxShadow(
-                          blurRadius: 35.0, // soften the shadow
-                          spreadRadius: 5.0, //extend the shadow
-                          offset: Offset(
-                            15.0, // Move to right 10  horizontally
-                            15.0, // Move to bottom 10 Vertically
-                          ),
-                        )
-                      ],
-                    ),
+                            BoxShadow(
+                              blurRadius: 25.0, // soften the shadow
+                              spreadRadius: 5.0, //extend the shadow
+                              offset: Offset(
+                                15.0, // Move to right 10  horizontally
+                                15.0, // Move to bottom 10 Vertically
+                              ),
+                            )
+                          ],
+                        ),
                     child: new FlatButton(child:  Text("Balances",
                       style: TextStyle(fontSize: 18.0,
                         shadows: <Shadow>[
@@ -175,7 +190,7 @@ class _expenseTypeState extends State<expenseType> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-
+        backgroundColor: Colors.deepOrangeAccent,
         onPressed: (){
           Navigator.push(
               context,

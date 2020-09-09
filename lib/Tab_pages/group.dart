@@ -21,7 +21,7 @@ class _GroupState extends State<Group> {
     return Scaffold(
       body: ListView.builder(
 
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.all(7.0),
       shrinkWrap: true,
       itemCount: groups.length,
       itemBuilder: (context, i) {

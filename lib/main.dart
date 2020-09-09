@@ -38,9 +38,9 @@ class MyApp extends StatelessWidget {
 
         theme: ThemeData(
           brightness: Brightness.light,
-          primaryColor: Colors.grey,
-          primarySwatch: Colors.brown,
-          accentColor: Colors.black54,
+          primaryColor: Colors.lightBlueAccent,
+          primarySwatch: Colors.blue,
+          accentColor: Colors.blue,
           fontFamily: 'Lato',
 
           visualDensity: VisualDensity.adaptivePlatformDensity,
