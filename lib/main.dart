@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:split_wise/Tab_pages/Friends_List.dart';
 
 import 'package:split_wise/Tab_pages/group.dart';
 import 'package:split_wise/algorithm/settleTrans.dart';
 import 'package:split_wise/data/peoplelist.dart';
+import 'package:split_wise/provider/groupsData.dart';
 import 'package:split_wise/screen/create_Group.dart';
 import 'package:split_wise/screen/splitType.dart';
 
@@ -30,17 +32,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return MaterialApp(
-      title: 'S P L I T W I S E',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.deepOrange,
-        fontFamily: 'Lato',
+    return ChangeNotifierProvider(
+      create: (context)=>GroupsData(),
+      child: MaterialApp(
 
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.grey,
+          primarySwatch: Colors.brown,
+          accentColor: Colors.black54,
+          fontFamily: 'Lato',
+
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: Menu(),
+        routes: routes,
       ),
-      home: Menu(),
-      routes: routes,
     );
   }
 }

@@ -37,22 +37,42 @@ class _peopleListState extends State<peopleList> {
             itemCount: contacts.length,
             itemBuilder: (context,index){
               Contact contact = contacts[index];
-              return new ListTile(
-                title: Text(contact.displayName != null ?contact.displayName:'' ),
-                subtitle:  Text(
-                    contact.phones.length > 0 ? contact.phones.elementAt(0).value : ''
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    decoration: new BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+
+                          BoxShadow(
+                            blurRadius: 25.0, // soften the shadow
+                            spreadRadius: 5.0, //extend the shadow
+                            offset: Offset(
+                              15.0, // Move to right 10  horizontally
+                              15.0, // Move to bottom 10 Vertically
+                            ),
+                          )
+                        ],
+                    ),
+                  child: new ListTile(
+                    title: Text(contact.displayName != null ?contact.displayName:'' ),
+                    subtitle:  Text(
+                        contact.phones.length > 0 ? contact.phones.elementAt(0).value : ''
+                    ),
+                    leading: (contact.avatar != null && contact.avatar.length > 0) ?
+                    CircleAvatar(
+                      backgroundImage: MemoryImage(contact.avatar),
+                    ) : CircleAvatar(
+                      child: Text(contact.initials()),
+                    ),
+                    onTap: (){
+                     s=contact.phones.length > 0 ? (contact.phones.elementAt(0).value): '';
+                     name = contact.displayName != null ?contact.displayName:'';
+                     mu.add(new People(s,name));
+                    },
+                  ),
                 ),
-                leading: (contact.avatar != null && contact.avatar.length > 0) ?
-                CircleAvatar(
-                  backgroundImage: MemoryImage(contact.avatar),
-                ) : CircleAvatar(
-                  child: Text(contact.initials()),
-                ),
-                onTap: (){
-                 s=contact.phones.length > 0 ? (contact.phones.elementAt(0).value): '';
-                 name = contact.displayName != null ?contact.displayName:'';
-                 mu.add(new People(s,name));
-                },
               );
             }
 

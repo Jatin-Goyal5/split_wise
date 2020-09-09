@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:icon_shadow/icon_shadow.dart';
 import 'package:split_wise/algorithm/settleTrans.dart';
 import 'package:split_wise/data/groupdata.dart';
 import 'package:split_wise/data/kharche.dart';
@@ -29,33 +30,66 @@ class _expenseTypeState extends State<expenseType> {
         title: Text(
           "People",
           style: TextStyle(
-            fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.bold
+              fontSize: 20.0
           ),
         ),
       ),
       body: ListView(
         shrinkWrap: true,
         children:<Widget>[ Container(
-          color: Colors.purple,
+          color:Colors.grey,
           child: new ListTile(
 
-            title:  new Center(child:Icon(Icons.featured_play_list,size: 100.0,color: Colors.white,)),
+            title:  new Center(child:IconShadowWidget( Icon(Icons.account_balance_wallet,size: 100.0),
+            showShadow: true,
+            shadowColor: Colors.black26,)
+            ),
             subtitle: Padding(
-              padding: const EdgeInsets.only(top:15.0),
+              padding: const EdgeInsets.all(20.0),
               child: new Row(
-
                 children: <Widget>[
                 Expanded(
                   flex:2,
-                  child: new FlatButton(
-                    child: Text("Settle UP",),color: Colors.red,onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => settleTrans(ind: ind,),
-                        ));
-                  },),
+                  child:  new Container( decoration: new BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+              boxShadow: [
+
+                BoxShadow(
+                  blurRadius: 35.0, // soften the shadow
+                  spreadRadius: 5.0, //extend the shadow
+                  offset: Offset(
+                    15.0, // Move to right 10  horizontally
+                    15.0, // Move to bottom 10 Vertically
+                  ),
+                )
+              ],
+            ),
+                    child: new FlatButton(
+                      child: Text("Settle UP",style: TextStyle(
+                        fontSize: 18.0,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 4.0,
+                            color:Colors.black54,
+                          ),
+                          Shadow(
+                            offset: Offset(5.0, 5.0),
+                            blurRadius: 8.0,
+                            color: Colors.black87,
+                          ),
+                        ],
+                      ),
+                      )
+                     ,onPressed: (){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => settleTrans(ind: ind,),
+                          ));
+                    },),
+                  ),
                 ),
                 Expanded(
                   flex: 1,
@@ -64,8 +98,42 @@ class _expenseTypeState extends State<expenseType> {
                 ),
                 Expanded(
                   flex: 2,
-                    child: new FlatButton(child:  Text("Balances"),color: Colors.white54,onPressed: (){},))
-              ],),
+                    child:new Container( decoration: new BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: [
+
+                        BoxShadow(
+                          blurRadius: 35.0, // soften the shadow
+                          spreadRadius: 5.0, //extend the shadow
+                          offset: Offset(
+                            15.0, // Move to right 10  horizontally
+                            15.0, // Move to bottom 10 Vertically
+                          ),
+                        )
+                      ],
+                    ),
+                    child: new FlatButton(child:  Text("Balances",
+                      style: TextStyle(fontSize: 18.0,
+                        shadows: <Shadow>[
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 4.0,
+                            color:Colors.black.withOpacity(0.8),
+                          ),
+                          Shadow(
+                            offset: Offset(5.0, 5.0),
+                            blurRadius: 8.0,
+                            color: Colors.black12,
+                          ),
+                        ],
+                      ),
+                    ),
+                      color: Colors.white54,onPressed: (){},)
+                    )
+                )
+              ],
+                ),
             ),
           ),
         ),
@@ -107,7 +175,7 @@ class _expenseTypeState extends State<expenseType> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor: Colors.deepOrangeAccent,
+
         onPressed: (){
           Navigator.push(
               context,

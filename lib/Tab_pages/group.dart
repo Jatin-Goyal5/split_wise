@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:split_wise/data/groupdata.dart';
+import 'package:provider/provider.dart';
+import 'package:split_wise/provider/groupsData.dart';
 import 'package:split_wise/widget/group_card.dart';
 
 import '../MyNavigator.dart';
@@ -12,37 +14,33 @@ class Group extends StatefulWidget {
 
 class _GroupState extends State<Group> {
 
-  Widget GroupList(){
-    return ListView.builder(
-
-        padding: EdgeInsets.all(10.0),
-        shrinkWrap: true,
-        itemCount: groups.length,
-        itemBuilder: (context, index) {
-          GroupData group = groups[index];
-          return Group_card(index, group.getGroupname(),group.getExpenseType());
-        },
-
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    // final groupsData = Provider.of<GroupsData>(context);
+    // final groups = groupsData.getGroup();
     return Scaffold(
-      body: GroupList(),
-      floatingActionButton: FloatingActionButton(
-        splashColor: Colors.deepOrangeAccent,
-        hoverColor: Colors.blue,
-        highlightElevation: 20.0,
-        foregroundColor: Colors.red,
-        child:
-           Icon(Icons.add,size: 35.0,color: Colors.white,)
-        ,
+      body: ListView.builder(
+
+      padding: EdgeInsets.all(10.0),
+      shrinkWrap: true,
+      itemCount: groups.length,
+      itemBuilder: (context, i) {
+        return Group_card(i, groups[i].getGroupname(),groups[i].getExpenseType());
+      },
+        ),
+      floatingActionButton:FloatingActionButton(
+
+        child: Icon(Icons.add,),
         onPressed: (){
-          MyNavigator.goToCreateGroup(context);
+        MyNavigator.goToCreateGroup(context);
 
         },
-      ),
+            ),
+
+
+
+
+
     );
   }
 }

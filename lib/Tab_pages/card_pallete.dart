@@ -9,33 +9,39 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  int _currentTab =0;
+
+  @override
   Widget build(BuildContext context) {
     final _kTabPages = <Widget>[
       friend_list(),
       Group(),
       Center(child: Text("ACTIVITY",style: TextStyle( color: Colors.teal,fontSize: 20.0))),
     ];
-    final _kTabs = <Tab>[
-      Tab(child:Text("FRIENDS",style: TextStyle( color: Colors.teal,fontSize: 20.0))),
-      Tab(child:  Text("GROUP",style: TextStyle( color: Colors.teal,fontSize: 20.0))),
-      Tab(child: Text("ACTIVITY",style: TextStyle( color: Colors.teal,fontSize: 20.0)))
+    final _kTabs = <BottomNavigationBarItem>[
+      BottomNavigationBarItem(icon:Icon(Icons.contact_phone,color: Colors.black,),title: Text("friends")),
+      BottomNavigationBarItem(icon:Icon(Icons.group_add,color: Colors.black,),title: Text("Group")),
+      BottomNavigationBarItem(icon:Icon(Icons.person_outline,color: Colors.black,),title: Text("Account"))
 
     ];
-    return DefaultTabController(
-      length: _kTabs.length,
-      child: Scaffold(
-        drawer: appDrawer(),
-        appBar: AppBar(
-          title: Text('S P L I T W I S E'),titleSpacing: 30.0,
-          elevation: 0.0,
-          bottom: TabBar(
-            tabs: _kTabs,
-          ),
-        ),
-        body: TabBarView(
-          children: _kTabPages,
-        ),
-      ),
+    assert(_kTabPages.length == _kTabs.length);
+    final bottomNavBar = BottomNavigationBar(
+      items: _kTabs,
+      currentIndex: _currentTab,
+      type: BottomNavigationBarType.fixed,
+      onTap: (int index){
+        setState(() {
+          _currentTab=index;
+        });
+      },
+    );
+
+
+    return Scaffold(
+      appBar: AppBar(title: Text("Spltwise"),),
+     body: _kTabPages[_currentTab],
+
+      bottomNavigationBar:bottomNavBar
     );
 
 

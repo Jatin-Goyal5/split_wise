@@ -28,10 +28,10 @@ class _addBillState extends State<addBill> {
         elevation: 0.0,
         title:new Row(
           children: <Widget>[
-            Text("add Bill"),
-            SizedBox(width: 30.0,height: 20.0,),
+            Text("add Bill",),
+            SizedBox(width: 150.0,height: 20.0,),
             FlatButton(
-              child: Text("Save"),
+              child: Text("Save",style: TextStyle(color: Colors.white)),
               onPressed: (){
                 List<People> forTrans= groups[ind].getPeopleList();
 
