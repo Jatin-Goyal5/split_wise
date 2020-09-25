@@ -1,6 +1,7 @@
 import 'dart:math';
 
-import 'package:split_wise/algorithm/ansdetail.dart';
+import 'package:split_wise/data/ansdetail.dart';
+import 'package:split_wise/data/groupdata.dart';
 import 'package:split_wise/main.dart';
 class Pair{
   String name;
@@ -12,13 +13,13 @@ class Pair{
 //     return
 //   }
 // }
-List<ansDetail> settleUp(int i) {
+List<ansDetail> settleUp(GroupData group) {
   Comparator<Pair> amountComparator = (a, b) => a.amount.compareTo(b.amount);
   List<Pair> m = List();
 
   //m.sort(amountComparator);
   List<ansDetail> ansTrans= List();
-  groups[i].trans.forEach((key,value){
+  group.trans.forEach((key,value){
 
     if(value !=0 ){
       m.add(new Pair(key, value));

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:google_fonts/google_fonts.dart';
+//import 'package:neumorphic/neumorphic.dart';
 import 'package:split_wise/Tab_pages/Friends_List.dart';
+import 'package:split_wise/Tab_pages/activity.dart';
 import 'package:split_wise/Tab_pages/appDrawer.dart';
 import 'package:split_wise/Tab_pages/group.dart';
 class Menu extends StatefulWidget {
@@ -16,7 +21,7 @@ class _MenuState extends State<Menu> {
     final _kTabPages = <Widget>[
       friend_list(),
       Group(),
-      Center(child: Text("ACTIVITY",style: TextStyle( color: Colors.teal,fontSize: 20.0))),
+      activity()
     ];
     final _kTabs = <BottomNavigationBarItem>[
       BottomNavigationBarItem(icon:Icon(Icons.contact_phone,color: Colors.black,),title: Text("friends")),
@@ -26,6 +31,7 @@ class _MenuState extends State<Menu> {
     ];
     assert(_kTabPages.length == _kTabs.length);
     final bottomNavBar = BottomNavigationBar(
+
       items: _kTabs,
       currentIndex: _currentTab,
       type: BottomNavigationBarType.fixed,
@@ -34,11 +40,35 @@ class _MenuState extends State<Menu> {
           _currentTab=index;
         });
       },
+      elevation: 0,
+      backgroundColor: Color(0xffDDDDDD),
+
     );
 
 
     return Scaffold(
-      appBar: AppBar(title: Text("Spltwise"),),
+
+      appBar: NeumorphicAppBar(
+        textStyle: GoogleFonts.mcLaren(),
+        title: NeumorphicText("S p l i t w i s e .",
+
+           style: NeumorphicStyle(
+             intensity: 1,
+             depth:15.0,
+             surfaceIntensity: 8,
+             shadowLightColor: Color(0xffFFFFFF),
+             color: Colors.black,
+             shadowLightColorEmboss: Colors.blue//customize color here
+           ),
+           textStyle: NeumorphicTextStyle(
+             fontSize: 38,
+             fontWeight: FontWeight.bold,
+             fontFamily: "lato"
+           ),
+         ),
+        titleSpacing: 10.0,
+
+      ),
      body: _kTabPages[_currentTab],
 
       bottomNavigationBar:bottomNavBar

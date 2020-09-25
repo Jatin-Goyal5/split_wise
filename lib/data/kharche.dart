@@ -1,15 +1,17 @@
-class Kharche{
-  String _payer;
-  String _desc="";
-  int _amt;
-  Kharche(this._desc,this._amt,this._payer);
-  int getAmt(){
-      return _amt;
-  }
-  String descRiption(){
-    return _desc;
-  }
-  String getPayer(){
-    return _payer;
-  }
+import 'package:flutter/material.dart';
+
+class Kharche with ChangeNotifier{
+  String payer;
+  String desc="";
+  int amt;
+  Kharche(this.desc,this.amt,this.payer);
+// int getAmt(){
+//     return _amt;
+// }
+// String descRiption(){
+//   return _desc;
+// }
+// String getPayer(){
+//   return _payer;
+// }
 }

@@ -1,13 +1,13 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:icon_shadow/icon_shadow.dart';
-
-import 'package:split_wise/MyNavigator.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 import 'package:split_wise/data/groupdata.dart';
 import 'package:split_wise/data/people.dart';
-import 'package:split_wise/data/peoplelist.dart';
+import 'package:split_wise/provider/groupsData.dart';
+import 'package:split_wise/screen/peoplelist.dart';
 
 import '../main.dart';
 
@@ -28,64 +28,54 @@ class _CreateGroupState extends State<CreateGroup> {
   String _groupName;
   String _Trip;
   bool mycolor = true;
+
+
   Widget Expenses(index) {
 
-    return Container(
-      decoration: BoxDecoration(
-        color: _selected[index] ? Colors.lightBlueAccent : Colors.white,
+    return new NeumorphicButton(
+      style: NeumorphicStyle(
+         color: _selected[index] ? Colors.lightBlueAccent : Colors.white,
 
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.8),
-            spreadRadius: 3,
-            blurRadius: 50,
-            offset: Offset(3, 4), // changes position of shadow
-          ),
-          BoxShadow(
-              color: Color(0xffA22447).withOpacity(.05),
-              offset: Offset(4, 0),
-              blurRadius: 5,
-              spreadRadius: 3)
-        ],
       ),
-      child: new FlatButton(
+      child: Text(type[index],),
+      onPressed: () {
 
-        child: Text(type[index],),
-        onPressed: () {
+        setState(() {
           _Trip = type[index];
-          setState(() {
 
-            _selected[index] = !_selected[index];
+          _selected[index] = !_selected[index];
 
-          });
+        });
 
-        },
-      ),
+      },
     );
   }
   @override
   Widget build(BuildContext context) {
+    final groups =Provider.of<GroupsData>(context);
+    final group = groups.getGroup();
+
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: new Row(
+      appBar: NeumorphicAppBar(
 
-          children: <Widget>[
-            Text("Create a group"),
-            SizedBox(width: 80.0,height: 20.0,),
-            FlatButton(
-              child: Text("Save", style: TextStyle(fontSize: 20.0),),
-              onPressed: (){
+        title: Text("Group"),
 
-                  _groupName= groupNamecon.text;
-                  newgroup = new GroupData(_groupName,_Trip,tpeople);
-                  groups.add(newgroup);
-                MyNavigator.goToTab(context);
-              },
-            )
-          ],
-        ),
+        actions: [
+          NeumorphicButton(
+
+            child:Icon(Icons.save),
+            onPressed: (){
+              _groupName =  groupNamecon.text;
+              groups.addGroup(new GroupData(_groupName,_Trip,tpeople));
+
+              Navigator.pop(context);
+            },
+          )
+        ],
+
       ),
+
+
       body: new Scrollbar(
         child: ListView(
 
@@ -130,20 +120,16 @@ class _CreateGroupState extends State<CreateGroup> {
           Row(
 
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:<Widget>[ Text("Group Members",style: TextStyle(fontSize: 20.0,
-              color: Colors.black,
-              shadows: [ Shadow(
-                  offset: Offset(2.0, 1.0),
-                  blurRadius: 8.0,
-                  color: Colors.brown
+            children:<Widget>[  NeumorphicText(
+              "Group Members",
+              style: NeumorphicStyle(
+                depth: 80,  //customize depth here
+                color: Colors.black54, //customize color here
               ),
-                Shadow(
-                  offset: Offset(3.0, 3.0),
-                  blurRadius: 8.0,
-                  color: Colors.brown,
-                ),]
-            )
-              ,),
+              textStyle: NeumorphicTextStyle(
+                fontSize: 18, //customize size here
+                ),
+            ),
             ]
           ),
           Divider(),
@@ -153,18 +139,18 @@ class _CreateGroupState extends State<CreateGroup> {
               TextStyle(fontSize: 25.0,
                 color: Colors.black ,
                   shadows: [ Shadow(
-                      offset: Offset(1.0, 1.0),
+                      offset: Offset(2.0, 1.0),
                       blurRadius: 8.0,
-                      color: Colors.brown
+                      color: Colors.black87
                   ),
                     Shadow(
                       offset: Offset(3.0, 3.0),
                       blurRadius: 8.0,
-                      color: Colors.brown,
+                      color: Colors.black12,
                     ),]
               ),),
-            trailing: IconButton(icon:IconShadowWidget(Icon(Icons.add,
-                color: Colors.black38, size: 36)),
+            trailing: IconButton(icon:Icon(Ionicons.ios_person_add,
+                color: Colors.black87, size: 36),
             onPressed: (){
 
               _awaitReturnValueFromSecondScreen(context);
@@ -181,19 +167,10 @@ class _CreateGroupState extends State<CreateGroup> {
               itemBuilder: (context,index){
                 People contact = tpeople[index];
                 return new ListTile(
-                  leading:Icon(Icons.person_outline,size: 25.0,) ,
+                  leading:Icon(Ionicons.ios_person,size: 25.0,) ,
                   title: Text(contact.getName()==''?contact.getPhoneno():contact.getName(),style: TextStyle(fontSize: 22.0,color: Colors.brown
-                      ,shadows: [ Shadow(
-                      offset: Offset(3.0, 3.0),
-                      blurRadius: 8.0,
-                      color: Colors.brown
+                     ),
                   ),
-                  Shadow(
-                    offset: Offset(3.0, 3.0),
-                    blurRadius: 8.0,
-                    color: Colors.brown,
-                  ),]
-                ),),
                 );
               }
 

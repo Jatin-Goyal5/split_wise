@@ -1,62 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:icon_shadow/icon_shadow.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'package:split_wise/data/groupdata.dart';
 import 'package:split_wise/screen/splitType.dart';
 
+import '../MyNavigator.dart';
 import '../main.dart';
+import 'package:flutter/cupertino.dart';
+
 
 class Group_card extends StatelessWidget {
-  final int index;
-  final String groupname;
-  final String groupexpense;
-  Group_card(this.index,this.groupname,this.groupexpense);
   @override
   Widget build(BuildContext context) {
+    final group = Provider.of<GroupData>(context);
+
     return  Padding(
+
       padding: const EdgeInsets.only(bottom:20.0),
-      child: Container(
-        decoration: new BoxDecoration(
-          color: Colors.lightBlue,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
 
-            BoxShadow(
-              blurRadius: 80.0, // soften the shadow
-              spreadRadius: 1.0, //extend the shadow
-              offset: Offset(
-                3.0, // Move to right   horizontally
-                1.0, // Move to bottom  Vertically
-              ),
-              color: Colors.blueGrey
+         // f Neumorphic (may be convex, flat & emboss)
+
+        child: Neumorphic(
+          style: NeumorphicStyle(
+            border: NeumorphicBorder(
+              color: Color(0x33000000),
+              width: 0.8,
             )
-          ],
-        ),
-        child: new ListTile(
-          onTap: (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => expenseType(ind: index,),
-                ));
-          },
-          contentPadding:const EdgeInsets.all(20.0),
-          leading:IconShadowWidget(Icon(Icons.group,
-              size: 36),
-            showShadow: true,
-          ),
-          title: Text(groupname,style: TextStyle(
-            fontSize: 20.0,color: Colors.black ,
+    ),
+          child: new ListTile(
+            onTap: (){
+              MyNavigator.goToSplitType(context,group.groupName);
+            },
+           // contentPadding:const EdgeInsets.all(10.0),
+            leading:NeumorphicIcon(Ionicons.ios_people,size: 50.0,
+            style: NeumorphicStyle(
+              depth: 4,
+              color: Colors.black, //customize color here
+            ),),
+            title: NeumorphicText(group.groupName,
+              style: NeumorphicStyle(
+                depth: 1,
+                color: Colors.white, //customize color here
+              ),
+              textStyle: NeumorphicTextStyle(
+                fontSize: 20,
+              ),
+            ),
+            subtitle: NeumorphicText(group.expenseType,
+              style: NeumorphicStyle(
+                depth: 4,
+                color: Colors.white, //customize color here
+              ),
+              textStyle: NeumorphicTextStyle(
+                fontSize: 10,
+              ),
+            ),
 
-          ),
-          ),
-          subtitle: Text(groupexpense,style: TextStyle(fontSize: 15.0,
-              color: Colors.black ,
-          ),
-          ),
 
-        ),
       ),
+        ),
     );
   }
 }
+
+
+
+

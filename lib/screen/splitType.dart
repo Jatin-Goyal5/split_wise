@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:split_wise/algorithm/settleTrans.dart';
-import 'package:split_wise/data/groupdata.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 import 'package:split_wise/data/kharche.dart';
-import 'package:split_wise/data/people.dart';
-import 'package:split_wise/main.dart';
-import 'package:split_wise/screen/addBill.dart';
+import 'package:split_wise/provider/groupsData.dart';
+
+
+import '../MyNavigator.dart';
 class expenseType extends StatefulWidget {
 
-  final int ind;
-  expenseType({Key key, @required this.ind}) : super(key: key);
-  @override
-  _expenseTypeState createState() => _expenseTypeState(ind);
+ @override
+  _expenseTypeState createState() => _expenseTypeState();
 }
 
 class _expenseTypeState extends State<expenseType> {
-  final int ind;
-  _expenseTypeState(this.ind);
-
 
   @override
   Widget build(BuildContext context) {
-    GroupData mygroup= groups[ind];
-    List<People> mypeople = mygroup.getPeopleList();
-    List<Kharche> ckharch= mygroup.getKharcheList();
-    return new Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
+    final cgroupid =ModalRoute.of(context).settings.arguments as String;
+    final loadgroup = Provider.of<GroupsData>(context).findByid(cgroupid);
+
+   return new Scaffold(
+      appBar: NeumorphicAppBar(
+
         title: Text(
           "People",
           style: TextStyle(
@@ -36,116 +33,39 @@ class _expenseTypeState extends State<expenseType> {
       body: ListView(
         shrinkWrap: true,
         children:<Widget>[ Container(
-          decoration:BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(0.0),
-              bottomLeft: Radius.circular(20.0),
-              bottomRight: Radius.circular(20.0),
-              topRight: Radius.circular(0.0)
-          ),
-         color: Colors.lightBlueAccent
-          // border:  Border(
-          // left: BorderSide(
-          //
-          // width: 1.0,
-          // ),
-          // top: BorderSide(
-          //
-          // width: 1.0,
-          // ),
-          // ),
-          ),
+
+
           child: new ListTile(
 
-            title:  new Center(child:Icon(Icons.account_balance_wallet,size: 100.0)),
+            title:  new Center(child:Icon(AntDesign.codepen,size: 100.0)),
             subtitle: Padding(
               padding: const EdgeInsets.only(top:10.0),
               child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                Expanded(
-                  flex:2,
-                  child:  new Container( decoration: new BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-              boxShadow: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new NeumorphicButton(
 
-                BoxShadow(
-                  blurRadius: 25.0, // soften the shadow
-                  spreadRadius: 5.0, //extend the shadow
-                  offset: Offset(
-                    15.0, // Move to right 10  horizontally
-                    15.0, // Move to bottom 10 Vertically
-                  ),
-                )
-              ],
-            ),
-                    child: new FlatButton(
-                      child: Text("Settle UP",style: TextStyle(
-                        fontSize: 18.0,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 4.0,
-                            color:Colors.black54,
-                          ),
-                          Shadow(
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 8.0,
-                            color: Colors.black87,
-                          ),
-                        ],
-                      ),
-                      )
-                     ,onPressed: (){
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => settleTrans(ind: ind,),
-                          ));
-                    },),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Divider(
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                    child:new Container(
-                        decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: [
 
-                            BoxShadow(
-                              blurRadius: 25.0, // soften the shadow
-                              spreadRadius: 5.0, //extend the shadow
-                              offset: Offset(
-                                15.0, // Move to right 10  horizontally
-                                15.0, // Move to bottom 10 Vertically
-                              ),
-                            )
-                          ],
-                        ),
-                    child: new FlatButton(child:  Text("Balances",
-                      style: TextStyle(fontSize: 18.0,
-                        shadows: <Shadow>[
-                          Shadow(
-                            offset: Offset(2.0, 2.0),
-                            blurRadius: 4.0,
-                            color:Colors.black.withOpacity(0.8),
-                          ),
-                          Shadow(
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 8.0,
-                            color: Colors.black12,
-                          ),
-                        ],
-                      ),
+                    child: Text("Settle UP",style: TextStyle(
+                      fontSize: 18.0,
                     ),
-                      color: Colors.white54,onPressed: (){},)
                     )
+                   ,onPressed: (){
+                    setState(() {
+                      MyNavigator.goToSettle(context,loadgroup.groupName);
+
+                    });
+
+                  },),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new NeumorphicButton(child:  Text("Balances",
+                    style: TextStyle(fontSize: 18.0,),
+                  ),
+                   onPressed: (){},),
                 )
               ],
                 ),
@@ -157,47 +77,51 @@ class _expenseTypeState extends State<expenseType> {
           ),
           new ListView.builder(
             shrinkWrap: true,
-            itemCount: ckharch.length,
-            itemBuilder:(context,index){
-              People person = mypeople[index];
-              Kharche kh = ckharch[index];
-              return Column(
+            itemCount: loadgroup.getKharcheList().length,
+            itemBuilder:(context,index)=>ChangeNotifierProvider.value(
+            value: loadgroup.getKharcheList()[index],
+
+              // Kharche kh = loadgroup.getKharcheList()[index];
+              child: Column(
                 children: <Widget>[
 
                   new ListTile(
-                    title: Text(kh.descRiption(), style: TextStyle(
-                      fontWeight: FontWeight.bold
+                    title: Text(loadgroup.getKharcheList()[index].desc, style: TextStyle(
+                        fontWeight: FontWeight.bold
                     ),),
-                    subtitle: Text(kh.getPayer()+"   "+kh.getAmt().toString()),
+                    subtitle: Text(loadgroup.getKharcheList()[index].payer+"   "+loadgroup.getKharcheList()[index].amt.toString()),
                     leading: CircleAvatar(
                       maxRadius: 30.0,
-                      child: Text(kh.descRiption()[0]),
+                      child: Text(loadgroup.getKharcheList()[index].desc[0]),
                     ),
                     onTap: (){
-                      print(groups[ind].trans[kh.getPayer()]);
+
 
                     },
                   ),
-                  Divider(
-                    color: Colors.blueGrey,
-                  ),
+
                 ],
-              );
-            } ,
+              )
+
           ),
+          )
 
     ]
+
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: NeumorphicFloatingActionButton(
+
         child: Icon(Icons.add),
-        backgroundColor: Colors.deepOrangeAccent,
+        style: NeumorphicStyle(
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+      ///
+        ),
         onPressed: (){
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => addBill(ind: ind,),
-              ));
+          setState(() {
+            MyNavigator.goToaddBill(context,loadgroup.groupName);
+          });
         },
+
       ),
     );
   }

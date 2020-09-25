@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
+import 'data/kharche.dart';
 
 class MyNavigator {
   static void goToCreateGroup(BuildContext context) {
@@ -19,10 +22,15 @@ class MyNavigator {
     Navigator.pushNamed(context, "/People");
   }
 
-  static void goToSplitType(BuildContext context) {
-    Navigator.pushNamed(context, "/split");
+  static void goToSettle(BuildContext context,String groupname) {
+    Navigator.pushNamed(context, "/settle",arguments: groupname);
   }
-  static void goToSettle(BuildContext context) {
-    Navigator.pushNamed(context, "/settle");
+  static void goToSplitType(BuildContext context, String groupname) {
+    Navigator.pushNamed(context, "/split",arguments: groupname);
   }
+
+  static List<Kharche> goToaddBill(BuildContext context, String groupName ) {
+    Navigator.pushNamed(context, "/addBill" ,arguments: groupName);
+  }
+
 }
