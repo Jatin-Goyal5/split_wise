@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:split_wise/data/ansdetail.dart';
 import 'package:split_wise/data/groupdata.dart';
 import 'package:split_wise/main.dart';
@@ -8,23 +7,16 @@ class Pair{
   int amount;
   Pair(this.name, this.amount);
 }
-// class Person_compar{
-//   bool operator()(Pair p1, Pair p2){
-//     return
-//   }
-// }
-List<ansDetail> settleUp(GroupData group) {
-  Comparator<Pair> amountComparator = (a, b) => a.amount.compareTo(b.amount);
-  List<Pair> m = List();
 
-  //m.sort(amountComparator);
+List<ansDetail> settleUp(GroupData group) {
+  Comparator<Pair> amountComparator = (a, b) => a.amount.compareTo(b.amount);// sort the transactionaccording to amount
+  List<Pair> m = List();
   List<ansDetail> ansTrans= List();
   group.trans.forEach((key,value){
 
     if(value !=0 ){
       m.add(new Pair(key, value));
       m.sort(amountComparator);
-
     }
   });
   m.sort(amountComparator);
@@ -43,13 +35,9 @@ List<ansDetail> settleUp(GroupData group) {
     String creditName = end.name;
 
     // pop
-
-
     m.remove(start);
 
     m.remove(end);
-    // print(debit);
-    // print(credit);
     int settleamt= min(-debit,credit);
     debit += settleamt;
     credit -= settleamt;
