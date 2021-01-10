@@ -19,7 +19,7 @@ List<ansDetail> settleUp(GroupData group) {
       m.sort(amountComparator);
     }
   });
-  m.sort(amountComparator);
+//   m.sort(amountComparator);
   for(int i=0 ; i< m.length; i++){
     print(m[i].name);
     print(m[i].amount);
